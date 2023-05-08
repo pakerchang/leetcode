@@ -20,37 +20,29 @@
 // 需要先排除 array, object
 // }
 
-var areDeeplyEqual = function (o1, o2) {
-  function isObject(obj) {
+function areDeeplyEqual(o1: any, o2: any): boolean {
+  function isObject(obj: {}): boolean {
     return typeof obj === "object" && obj !== null;
   }
-  if (!isObject(o1) || !isObject(o2)) return o1 === o2;
+
+  if (!isObject(o2)) return o1 === o2;
   if (o1 === o2) return true;
 
-  //此时 o1与o2 都是对象或者数组，而且不相等
-
   if (o1 instanceof Array !== o2 instanceof Array) return false;
-  if (Array.isArray(o1) !== Array.isArray(o2)) return false;
-  // 先取出 o1 和 o2 的key，比较个数
+
   if (o1 instanceof Array) {
     if (o1.length !== o2.length) return false;
   } else {
-    const keys1 = Object.keys(o1);
-    const keys2 = Object.keys(o2);
-    if (keys1.length !== keys2.length) return false;
+    const key1 = Object.keys(o1);
+    const key2 = Object.keys(o2);
+
+    if (key1.length !== key2.length) return false;
   }
 
-  // 递归比较
   for (let key in o1) {
     const res = areDeeplyEqual(o1[key], o2[key]);
-    console.log(o1[key], o2[key]);
     if (!res) return false;
   }
-  // 全相等
-  return true;
-};
 
-areDeeplyEqual({ x: null, L: [1, 2, 3] }, { x: null, L: ["1", "2", "3"] });
-console.log(
-  areDeeplyEqual({ x: null, L: [1, 2, 3] }, { x: null, L: ["1", "2", "3"] })
-);
+  return true;
+}

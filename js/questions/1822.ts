@@ -10,14 +10,11 @@
  * Return signFunc(product).
  */
 
-function arraySign(nums) {
+function arraySign(nums: number[]): number {
   if (nums.includes(0)) return 0;
-
-  let product = 1;
-  nums.forEach((item) => {
-    product *= item;
+  let product: number = 1;
+  nums.forEach((item: number) => {
+    return (product *= item);
   });
   return product < 0 ? -1 : 1;
 }
-
-console.log(product);
