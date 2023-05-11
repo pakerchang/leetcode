@@ -21,6 +21,10 @@
 type F = (x: number) => number;
 
 function compose(functions: F[]): F {
+  if (functions.length === 0)
+    return function (x) {
+      return x;
+    };
   return function (x: number): number {
     // Other way without reduce,
     // return functions.reduceRight((result, fn) => fn(result), x);
