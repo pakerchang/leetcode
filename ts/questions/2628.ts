@@ -18,7 +18,7 @@
 // }
 
 function areDeeplyEqual(o1: any, o2: any): boolean {
-  function isObject(obj: {}): boolean {
+  function isObject(obj: object): boolean {
     return typeof obj === "object" && obj !== null;
   }
 
@@ -36,7 +36,7 @@ function areDeeplyEqual(o1: any, o2: any): boolean {
     if (key1.length !== key2.length) return false;
   }
 
-  for (let key in o1) {
+  for (const key in o1) {
     const res = areDeeplyEqual(o1[key], o2[key]);
     if (!res) return false;
   }
