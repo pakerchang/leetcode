@@ -3,7 +3,8 @@
  * The first time the returned function is called, it should return the same result as fn.
  * Every subsequent time it is called, it should return undefined.
  */
-// 基本思路是建立一個 State 監管執行的 function 在初始化後是否被執行過，所以需要額外新增一個變數，當 function 被執行後更新，並攔阻之後的呼叫
+// 基本思路是建立一個 State 監管執行的 function 在初始化後是否被執行過
+// 所以需要額外新增一個變數，當 function 被執行後更新，並攔阻之後的呼叫
 
 function checkOnce(): { isFunctionExecuted: boolean; setExecute: () => void } {
   let isFunctionExecuted = false;
@@ -17,12 +18,12 @@ function checkOnce(): { isFunctionExecuted: boolean; setExecute: () => void } {
 function once<T extends (...args: any[]) => any>(
   fn: T
 ): (...args: Parameters<T>) => ReturnType<T> | undefined {
-  const { isFunctionExecuted, setExecute } = checkOnce();
-  // let isFunctionExecuted = false;
+  // const { isFunctionExecuted, setExecute } = checkOnce();
+  let isFunctionExecuted = false;
   return function (...args) {
     if (isFunctionExecuted) return undefined;
-    setExecute();
-    // isFunctionExecuted = true;
+    // setExecute();
+    isFunctionExecuted = true;
     return fn(...args);
   };
 }

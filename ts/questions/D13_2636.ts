@@ -7,15 +7,15 @@
 
 type F = () => Promise<any>;
 
+// const result: unknown[] = [];
+// new Promise((resolve) => {
+//   for (let i = 0; i < functions.length; i++) {
+//     const solved = functions[i];
+//     resolve(solved().then((resp) => result.push(resp)));
+//   }
+// });
+// return Promise.all(result);
 function promisePool(functions: F[], n: number): Promise<any> {
-  // const result: unknown[] = [];
-  // new Promise((resolve) => {
-  //   for (let i = 0; i < functions.length; i++) {
-  //     const solved = functions[i];
-  //     resolve(solved().then((resp) => result.push(resp)));
-  //   }
-  // });
-  // return Promise.all(result);
   let i = 0;
 
   const worker = async () => {
@@ -28,7 +28,7 @@ function promisePool(functions: F[], n: number): Promise<any> {
   return Promise.all(workers);
 }
 
-const sleep = (t) => new Promise((res) => setTimeout(res, t));
+const sleep = (t: number) => new Promise((res) => setTimeout(res, t));
 
 promisePool([() => sleep(500), () => sleep(400)], 1).then(console.log);
 
@@ -49,47 +49,47 @@ promisePool([() => sleep(500), () => sleep(400)], 1).then(console.log);
 //   return Promise.all(workers);
 // }type F = () => Promise<any>;
 
-function promisePool(functions: F[], n: number): Promise<any> {
-  const promises = new PromisePool(functions, n);
-  return promises.start();
-}
-
-class PromisePool {
-  private completed = 0;
-  private index = 0;
-  private resolve: () => void;
-
-  constructor(private functions: F[], private n: number) {
-    if (n < 1) this.n = 1;
-    else if (n > functions.length) this.n = functions.length;
-  }
-
-  public async start(): Promise<void> {
-    if (!this.functions.length) return Promise.resolve();
-    for (let i = 0; i < this.n; i++) {
-      const func = this.functions[i];
-      this.runFunction(func);
-    }
-    this.index = this.n - 1;
-    return new Promise((resolve) => (this.resolve = resolve));
-  }
-
-  private runFunction(func: F): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      await func();
-
-      // Check if complete
-      this.completed++;
-      if (this.completed === this.functions.length) {
-        if (this.resolve) this.resolve();
-      }
-
-      // Run next
-      this.index++;
-      if (this.index < this.functions.length) {
-        const nextFunc = this.functions[this.index];
-        this.runFunction(nextFunc);
-      }
-    });
-  }
-}
+// function promisePool(functions: F[], n: number): Promise<any> {
+//   const promises = new PromisePool(functions, n);
+//   return promises.start();
+// }
+//
+// class PromisePool {
+//   private completed = 0;
+//   private index = 0;
+//   private resolve: () => void;
+//
+//   constructor(private functions: F[], private n: number) {
+//     if (n < 1) this.n = 1;
+//     else if (n > functions.length) this.n = functions.length;
+//   }
+//
+//   public async start(): Promise<void> {
+//     if (!this.functions.length) return Promise.resolve();
+//     for (let i = 0; i < this.n; i++) {
+//       const func = this.functions[i];
+//       this.runFunction(func);
+//     }
+//     this.index = this.n - 1;
+//     return new Promise((resolve) => (this.resolve = resolve));
+//   }
+//
+//   private runFunction(func: F): Promise<void> {
+//     return new Promise(async (resolve, reject) => {
+//       await func();
+//
+//       // Check if complete
+//       this.completed++;
+//       if (this.completed === this.functions.length) {
+//         if (this.resolve) this.resolve();
+//       }
+//
+//       // Run next
+//       this.index++;
+//       if (this.index < this.functions.length) {
+//         const nextFunc = this.functions[this.index];
+//         this.runFunction(nextFunc);
+//       }
+//     });
+//   }
+// }
