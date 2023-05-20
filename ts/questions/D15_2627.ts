@@ -7,9 +7,9 @@ type F = (...p: any[]) => any;
 
 /**
  * @function debounce
- * @param fn 
- * @param t 
- * @returns 
+ * @param fn
+ * @param t
+ * @returns
  * @description 因封裝調用，所以初始化時會先預設 time，並在調用後重新定義另一蹭 timeout，實際需求只要重置初始狀態的 timeout 即可
  * 所以只需要綁定一個 id 在 debounce 內讓 clearTimeout 可以找到對應的 Task 即可
  */
