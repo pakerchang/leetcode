@@ -3,13 +3,9 @@ module.exports = {
     { value: "feat", name: "feat: 增加" },
     { value: "fix", name: "fix: bug fix" },
     { value: "docs", name: "docs: 修改文件" },
-    {
-      value: "chore",
-      name: "chore: 修改建置流程、包管理、構建過程或輔助工具的變動。不包含修改測試檔、src 裡的檔案",
-    },
     { value: "del", name: "del: 刪除" },
   ],
-  scopes: [{ name: "Composable" }],
+  scopes: [],
   messages: {
     type: "選擇更改類型:\n",
     scope: "選擇 scope（Options）：\n",
