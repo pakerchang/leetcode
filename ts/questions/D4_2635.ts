@@ -11,12 +11,9 @@
 function plusI(item: number, idx: number): number {
   return item + idx;
 }
-function flatContent(
-  arr: number[],
-  fn: (n: number, i: number) => number
-): number[] {
+function flatContent(arr: number[], fn: (n: number, i: number) => number): number[] {
   const result: number[] = [];
-  for (let i: number = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length; i++) {
     result[i] = fn(arr[i], i);
   }
   return result;
