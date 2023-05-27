@@ -25,14 +25,13 @@ function areDeeplyEqual(o1: any, o2: any): boolean {
   if (!isObject(o2)) return o1 === o2;
   if (o1 === o2) return true;
 
-  if (o1 instanceof Array !== o2 instanceof Array) return false;
+  if (Array.isArray(o1) !== Array.isArray(o2)) return false;
 
-  if (o1 instanceof Array) {
+  if (Array.isArray(o1)) {
     if (o1.length !== o2.length) return false;
   } else {
     const key1 = Object.keys(o1);
     const key2 = Object.keys(o2);
-
     if (key1.length !== key2.length) return false;
   }
 
