@@ -13,16 +13,13 @@ type MultiDimensionalArray = (number | MultiDimensionalArray)[];
  * @param arr
  * @param n
  * @param depth
+ * @param result
  * @returns
  */
-const flat = (arr: MultiDimensionalArray, n: number, depth: number = 0): number[] => {
-  let result: number[] = [];
+const flat = (arr: MultiDimensionalArray, n: number, depth: number = 0, result: number[] = []): number[] => {
   for (const el of arr) {
     if (Array.isArray(el) && depth < n) {
-      /**
-       * 當發現遍歷對象是 Array, 同時遍歷層次為到達指定深度時，進行子層的遍歷並將其輸出到新的
-       */
-      result = result.concat(flat(el as MultiDimensionalArray, n, depth + 1));
+      flat(el as MultiDimensionalArray, n, depth + 1, result);
     } else {
       result.push(el as number);
     }
