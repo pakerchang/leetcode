@@ -1,5 +1,5 @@
 {
-  "tabs": true,
+  "tabs": false,
   "tabWidth": 2,
   "printWidth": 100,
   "singleQuote": false,
